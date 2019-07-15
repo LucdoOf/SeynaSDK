@@ -3,6 +3,7 @@
 namespace SeynaSDK\Models;
 
 use SeynaSDK\Core\Dbg;
+use SeynaSDK\Utils\JSONBuilder;
 
 /**
  * Created by PhpStorm.
@@ -12,6 +13,10 @@ use SeynaSDK\Core\Dbg;
  */
 
 class Splitting {
+
+    use JSONBuilder;
+
+    static $columns = ["type","fee"];
 
     /** @var Type du splitting eg: Monthly */
     public $type;
@@ -30,13 +35,6 @@ class Splitting {
                 Dbg::logs("Missing variable in Splitting: " . $k . " => " . $v, Dbg::L_ERROR);
             }
         }
-    }
-
-    public function toJSON(){
-        return [
-          "type" => $this->type,
-          "fee" => $this->fee
-        ];
     }
 
 }

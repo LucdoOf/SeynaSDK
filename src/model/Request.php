@@ -56,8 +56,8 @@ class Request extends Model
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($this->body));
         } else if($this->method === self::PUT && !is_null($this->body)){
-            curl_setopt($ch, CURLOPT_PUT, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($this->body));
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->body));
         }
         //curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

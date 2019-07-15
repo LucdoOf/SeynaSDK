@@ -23,10 +23,12 @@ class Contract {
     public $id;
     /** @var int Version récupérée du contrat */
     public $version;
+    /** @var Url du contrat */
+    public $url;
     /** @var string Evennement associé à la version actuelle du contrat */
     public $event;
     /** @var string Identifiant unique qui lie le contrat a un customer unique */
-    public $customer;
+    public $customer; //TODO N'EST PAS RENVOYE DANS LE PUT, LE DIRE A SEYNA
     /** @var Entity[] Liste des subscribers */
     public $subscriber;
     /** @var Entity[] Liste des assurés */
@@ -70,7 +72,7 @@ class Contract {
                         if($k == "splitting"){
                             $this->{$k} = new Splitting($v);
                         } else if($k == "cancel"){
-                            $this->{$k} = new Cancel();
+                            $this->{$k} = new Cancel($v);
                         } else if($k == "guarantees"){
                             $this->{$k} = [];
                             foreach ($v as $kk => $vv){
@@ -96,7 +98,6 @@ class Contract {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
         $request = $requestManager->request("portfolios/".PORTFOLIO_ID."/contracts");
         $response = $request->getJSONResponse();
-        var_dump($response);
         $contracts = [];
         if(isset($response["data"])) {
             foreach ($response["data"] as $contract) {
@@ -115,8 +116,60 @@ class Contract {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
         $data = $this->toJSON();
         $request = $requestManager->request("portfolios/".PORTFOLIO_ID."/contracts/".$this->id, "PUT", $data);
-        var_dump($request);
+        return $request;
     }
+
+    /**
+     * Récupère un contract par son identifiant unique
+     */
+    public static function getContract($id){
+        $requestManager = SeynaSDK::getInstance()->getRequestManager();
+        $request = $requestManager->request("portfolios/".PORTFOLIO_ID."/contracts/".$id);
+        $response = $request->getJSONResponse();
+        if(!empty($response)){
+            return new Contract($response);
+        } else {
+            Dbg::logs("Unknown contract " . $id);
+            return $request;
+        }
+    }
+
+    /**
+     * Récupère la liste des contracts par version
+     */
+    public function getHistory(){
+        $requestManager = SeynaSDK::getInstance()->getRequestManager();
+        $request = $requestManager->request("portfolios/".PORTFOLIO_ID."/contracts/".$this->id."/versions");
+        $response = $request->getJSONResponse();
+        $contracts = [];
+        if(isset($response["data"])){
+            foreach ($response["data"] as $contract) {
+                $contracts[] = new Contract($contract);
+            }
+        } else {
+            Dbg::logs("Missing data index in contract getHistory()");
+        }
+        return $contracts;
+    }
+
+    /**
+     * Récupère la liste des reçus associés
+     */
+    public function getReceipts(){
+        $requestManager = SeynaSDK::getInstance()->getRequestManager();
+        $request = $requestManager->request("portfolios/".PORTFOLIO_ID."/contracts/".$this->id."/receipts");
+        $response = $request->getJSONResponse();
+        $receipts = [];
+        if(!empty($response["data"])){
+            foreach ($response["data"] as $receipt){
+                $receipts[] = new Receipt($receipt);
+            }
+        } else {
+            Dbg::logs("Missing data in contract getReceipts()");
+        }
+        return $receipts;
+    }
+
 
 
 

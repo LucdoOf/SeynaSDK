@@ -3,6 +3,7 @@
 namespace SeynaSDK\Models;
 
 use SeynaSDK\Core\Dbg;
+use SeynaSDK\Utils\JSONBuilder;
 
 /**
  * Created by PhpStorm.
@@ -12,6 +13,10 @@ use SeynaSDK\Core\Dbg;
  */
 
 class Cancel {
+
+    use JSONBuilder;
+
+    static $columns = ["date","reason"];
 
     /** @var Date de l'annulation string<date-time> */
     public $date;
@@ -32,11 +37,5 @@ class Cancel {
         }
     }
 
-    public function toJSON(){
-        return [
-          "date" => $this->date,
-          "reason" => $this->reason
-        ];
-    }
 
 }

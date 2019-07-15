@@ -13,6 +13,10 @@ use SeynaSDK\Core\Dbg;
 
 trait JSONBuilder {
 
+    /**
+     * JSON-IFIER
+     * @return array
+     */
     public function toJSON(){
         $col = $this::$columns;
         $data = [];
@@ -23,9 +27,15 @@ trait JSONBuilder {
                 Dbg::logs("Missing variable in JSONBuilder " . $k, Dbg::L_ERROR);
             }
         }
-        return $this->formatArray($data);
+        $array = $this->formatArray($data);
+        return $array;
     }
 
+    /**
+     * Formatting array to strings and int only (->toJSON on objects)
+     * @param $array
+     * @return array
+     */
     public function formatArray($array){
         $return = [];
         foreach ($array as $key => $value){

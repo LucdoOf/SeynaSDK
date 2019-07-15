@@ -3,6 +3,7 @@
 namespace SeynaSDK\Models;
 
 use SeynaSDK\Core\Dbg;
+use SeynaSDK\Utils\JSONBuilder;
 
 /**
  * Created by PhpStorm.
@@ -12,6 +13,10 @@ use SeynaSDK\Core\Dbg;
  */
 
 class Entity {
+
+    use JSONBuilder;
+
+    static $columns = ["type","name","registration","representative","address","email","phone","birthday"];
 
     /** @var Type de l'entitié eg: indidivual, company, nonprofit */
     public $type;
@@ -44,17 +49,5 @@ class Entity {
         }
     }
 
-    public function toJSON(){
-        return [
-            "type" => $this->type,
-            "name" => $this->name,
-            "registration" => $this->registration,
-            "representative" => $this->representative,
-            "address" => $this->address,
-            "email" => $this->email,
-            "phone" => $this->phone,
-            "birthday" => $this->birthday
-        ];
-    }
 
 }

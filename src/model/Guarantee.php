@@ -3,6 +3,7 @@
 namespace SeynaSDK\Models;
 
 use SeynaSDK\Core\Dbg;
+use SeynaSDK\Utils\JSONBuilder;
 
 /**
  * Created by PhpStorm.
@@ -12,6 +13,10 @@ use SeynaSDK\Core\Dbg;
  */
 
 class Guarantee {
+
+    use JSONBuilder;
+
+    static $columns = ["premium","tax","discount","broker_fee","cost_acquisition"];
 
     /** @var Premium without tax, fees, commissions Number >= 0*/
     private $premium;
@@ -36,16 +41,6 @@ class Guarantee {
                 Dbg::logs("Missing variable in Guarantee: " . $k . " => " . $v, Dbg::L_ERROR);
             }
         }
-    }
-
-    public function toJSON(){
-        return [
-            "premium" => $this->premium,
-            "tax" => $this->tax,
-            "discount" => $this->discount,
-            "broker_fee" => $this->broker_fee,
-            "cost_acquisition" => $this->cost_acquisition
-        ];
     }
 
 
