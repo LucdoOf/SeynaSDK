@@ -7,6 +7,7 @@ use Exception;
 use Generator;
 use PDO;
 use PDOStatement;
+use SeynaSDK\Core\Database\Sql;
 
 /**
  * Objet de base

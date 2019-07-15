@@ -2,9 +2,9 @@
 
 namespace SeynaSDK\Core\Database;
 
-use App\Core\Dbg;
 use Error;
 use Exception;
+use SeynaSDK\Core\Dbg;
 use PDO;
 use PDOStatement;
 

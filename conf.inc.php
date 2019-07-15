@@ -6,9 +6,9 @@
  * Time: 14:51
  */
 
-define("SDK_ROOT", dirname(__DIR__) . '/');
-define("PORTOFOLIO_ID", "-1");
-define("SEYNA_URL", "https://api.seyna.eu/v0/");
+define("SDK_ROOT", dirname(__DIR__) . '/seyna-sdk/');
+define("PORTFOLIO_ID", "ticketmate");
+define("SEYNA_URL", "https://75kyb3s3q9.execute-api.eu-west-1.amazonaws.com/prod/");
 define("IS_DEV", true);
 
 define('MYSQL_DB', 'phenomen');

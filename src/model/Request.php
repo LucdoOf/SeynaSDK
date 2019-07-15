@@ -6,12 +6,13 @@
  * Time: 15:16
  */
 
-namespace SeynaSDK\Core\Model;
-
-use SeynaSDK\Models\Model;
+namespace SeynaSDK\Models;
 
 class Request extends Model
 {
+
+    /** @var array Colonnes a sauvegarder en SQL */
+    public static $columns = ["id","uri","method","httpStatus","response","body","error","stamp"];
 
     /** Table de stockage SQL */
     const TBNAME = "seyna_requests";

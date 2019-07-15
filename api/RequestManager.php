@@ -9,7 +9,7 @@
 namespace SeynaSDK\API;
 
 use SeynaSDK;
-use SeynaSDK\Core\Model\Request;
+use SeynaSDK\Models\Request;
 
 class RequestManager
 {

@@ -104,6 +104,7 @@ class Dbg
      * @return string
      */
     static public function getPath() {
+
         $filePath[0] = SDK_ROOT . 'data/logs/';
         $filePath[1] = $filePath[0] . date('Y') . '/';
         $filePath[2] = $filePath[1] . date('m') . '/';
@@ -114,7 +115,6 @@ class Dbg
                 chmod($fp, 0774);
             }
         }
-
         return $filePath[2];
     }
 

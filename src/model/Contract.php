@@ -1,7 +1,10 @@
 <?php
 
-use SeynaSDK\Core\Dbg;
+namespace SeynaSDK\Models;
+
 use SeynaSDK\SeynaSDK;
+use SeynaSDK\Core\Dbg;
+use SeynaSDK\Utils\JSONBuilder;
 
 /**
  * Created by PhpStorm.
@@ -12,16 +15,16 @@ use SeynaSDK\SeynaSDK;
 
 class Contract {
 
+    use JSONBuilder;
+
+    static $columns = ["id","version","event","customer","subscriber","insured","beneficiary","splitting","subscription","issuance","start","end","coinsurance","extra_broker_fee","cancel","guarantees"];
+
     /** @var String Identifiant du contrat */
     public $id;
     /** @var int Version récupérée du contrat */
     public $version;
     /** @var string Evennement associé à la version actuelle du contrat */
     public $event;
-    /** @var string Date de création du contrat */
-    public $created;
-    /** @var string Date de la dernière mise à jour de l'objet */
-    public $updated;
     /** @var string Identifiant unique qui lie le contrat a un customer unique */
     public $customer;
     /** @var Entity[] Liste des subscribers */
@@ -51,15 +54,37 @@ class Contract {
 
     /**
      * Contract constructor.
-     * @param $data Array Données reçues lors d'un get contract information
+     * @param array $data Array Données reçues lors d'un get contract information
      * @see https://seyna.eu/docs/api#operation/contract_get
      */
-    public function __construct($data) {
+    public function __construct($data = []) {
         foreach ($data as $k => $v){
-            if($this->{$k}){
-                $this->{$k} = $v;
+            if(property_exists($this,$k)){
+                if(is_array($v)){
+                    if($k == "subscriber" || $k == "insured" || $k == "beneficiary"){
+                        $this->{$k} = [];
+                        foreach ($v as $vv){
+                            array_push($this->{$k}, new Entity($vv));
+                        }
+                    } else {
+                        if($k == "splitting"){
+                            $this->{$k} = new Splitting($v);
+                        } else if($k == "cancel"){
+                            $this->{$k} = new Cancel();
+                        } else if($k == "guarantees"){
+                            $this->{$k} = [];
+                            foreach ($v as $kk => $vv){
+                                $this->{$k}[$kk] = new Guarantee($vv);
+                            }
+                        } else {
+                            Dbg::logs("Missing array variable in contract: " . $k, Dbg::L_ERROR);
+                        }
+                    }
+                } else {
+                    $this->{$k} = $v;
+                }
             } else {
-                Dbg::logs("Missing variable in contract: " . $k . " => " . $v, Dbg::L_ERROR);
+                Dbg::logs("Missing variable in contract: " . $k, Dbg::L_ERROR);
             }
         }
     }
@@ -69,13 +94,28 @@ class Contract {
      */
     public static function getContracts(){
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
-        $request = $requestManager->request("portofolios/".PORTOFOLIO_ID."/contracts");
+        $request = $requestManager->request("portfolios/".PORTFOLIO_ID."/contracts");
         $response = $request->getJSONResponse();
+        var_dump($response);
         $contracts = [];
-        foreach ($response["data"] as $contract){
-            $contracts[] = new Contract($contract);
+        if(isset($response["data"])) {
+            foreach ($response["data"] as $contract) {
+                $contracts[] = new Contract($contract);
+            }
+        } else {
+            Dbg::logs("Missing data index in getContracts()");
         }
         return $contracts;
+    }
+
+    /**
+     * Créé ou met a jour le contract chez seyna
+     */
+    public function putContract(){
+        $requestManager = SeynaSDK::getInstance()->getRequestManager();
+        $data = $this->toJSON();
+        $request = $requestManager->request("portfolios/".PORTFOLIO_ID."/contracts/".$this->id, "PUT", $data);
+        var_dump($request);
     }
 
 
