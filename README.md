@@ -2,7 +2,7 @@
 
 ### SQL :
 
-```
+```sql
 CREATE TABLE `seyna_requests` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `uri` varchar(255) NOT NULL,
