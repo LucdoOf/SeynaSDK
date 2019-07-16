@@ -1,6 +1,6 @@
-##Installation 
+#Installation 
 
-- SQL :
+###SQL :
 
 ```
 CREATE TABLE `seyna_requests` (
@@ -18,18 +18,18 @@ CREATE TABLE `seyna_requests` (
 
 >\* Les droits d'écriture pour l'utilisateur *www-data* doivent être appliqués sur le dossier **/data**.
    
-##Utilisation
+#Utilisation
 
-- Avant propos : 
+###Avant propos : 
 Les classes du dossier api sont la pour simplifier l'utilisation du SDK mais ne remplacent pas toutes les fonctionnalitées
 disponibles dans les objets. Des fonctions statiques seront ajoutées au fur et à mesure dans les manager.   
 
-- Liste des objets :
+###Liste des objets :
 Les objets fournis dans le SDK sont les suivants:
 `Claim`, `Contract`, `Entity`, `Guarantee`, `Receipt`, `Request`, `Settlement`, `Splitting`. Les autres objets du projet ne sont que des utilitaires
 pour le bon fonctionnement de ceux si. 
 
-- Manipulation des objets : 
+###Manipulation des objets : 
 Pour créer un objet deux options sont possibles, la première utiliser les classes manager et leur fonctions `createObject`, la seconde est 
 d'instancier un objet avec une array associative contenant toutes ses variables puis d'appeler sa méthode `putObject`. Exemple d'instanciation d'un objet Claim: 
 ```php
@@ -46,4 +46,4 @@ $claim = new Claim(['id' => $id, 'contract' => $contract-id, 'occurence' => $occ
 $claim->putClaim();
 ```
 
-Attention, procéder de cette manière est déconseillée car certains champs ont une syntaxe spéciale lors de l'envoi (notement les champs contracts qui varient selon les objets). 
+_Attention, procéder de cette manière est déconseillée car certains champs ont une syntaxe spéciale lors de l'envoi (notement les champs contracts qui varient selon les objets)._ 
