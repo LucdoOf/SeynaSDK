@@ -1,5 +1,7 @@
 # Installation 
 
+>\* Avant d'utiliser l'API veillez à inclure le fichier autoload.php dans votre index 
+
 ### Configuration :
 
 Un fichier ``conf.inc.php`` est livré à la racine du projet. Vous **devez**  configurer les options suivantes :

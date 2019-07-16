@@ -28,7 +28,7 @@ class Contract {
     /** @var string Evennement associé à la version actuelle du contrat */
     public $event;
     /** @var string Identifiant unique qui lie le contrat a un customer unique */
-    public $customer; //TODO N'EST PAS RENVOYE DANS LE PUT, LE DIRE A SEYNA
+    public $customer;
     /** @var Entity[] Liste des subscribers */
     public $subscriber;
     /** @var Entity[] Liste des assurés */
@@ -111,6 +111,7 @@ class Contract {
 
     /**
      * Créé ou met a jour le contract chez seyna
+     * @return Request
      */
     public function putContract(){
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
@@ -121,6 +122,7 @@ class Contract {
 
     /**
      * Récupère un contract par son identifiant unique
+     * @return Contract
      */
     public static function getContract($id){
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
@@ -136,6 +138,7 @@ class Contract {
 
     /**
      * Récupère la liste des contracts par version
+     * @return Contract[]
      */
     public function getHistory(){
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
@@ -154,6 +157,7 @@ class Contract {
 
     /**
      * Récupère la liste des reçus associés
+     * @return Receipt[]
      */
     public function getReceipts(){
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
@@ -172,6 +176,7 @@ class Contract {
 
     /**
      * Récupère la liste des claims associés
+     * @return Claim[]
      */
     public function getClaims(){
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
