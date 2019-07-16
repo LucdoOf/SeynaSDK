@@ -1,5 +1,7 @@
 # Installation 
 
+Pour installer le projet il vous suffit de le cloner dans votre projet initial et de configurer git avec le projet. (Pour PhpStorm File -> Settings -> Version Control)
+
 >\* Avant d'utiliser l'API veillez à inclure le fichier autoload.php dans votre index 
 
 ### Configuration :
