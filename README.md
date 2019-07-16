@@ -32,12 +32,18 @@ pour le bon fonctionnement de ceux si.
 - Manipulation des objets : 
 Pour créer un objet deux options sont possibles, la première utiliser les classes manager et leur fonctions `createObject`, la seconde est 
 d'instancier un objet avec une array associative contenant toutes ses variables puis d'appeler sa méthode `putObject`. Exemple d'instanciation d'un objet Claim: 
-```
-ClaimManager::createClaim("contract-test", $contract, "occurence", "location", "notification", "revaluation_reason", $guarantees);
+```php
+<?php
+ClaimManager::createClaim("contract-test", $contract, "occurence",
+ "location", "notification", "revaluation_reason", $guarantees);
 ```
 Et avec la deuxième méthode: 
-```
-$claim = new Claim(['id' => $id', 'contract' => $contract-id, 'occurence' => $occurence, 'location' => $location, 'notification' => $notification, 'revaluation_reason' => $reason, 'guarantees' => $guarantees])
+```php
+<?php
+$claim = new Claim(['id' => $id, 'contract' => $contract-id, 'occurence' => $occurence,
+ 'location' => $location, 'notification' => $notification,
+ 'revaluation_reason' => $reason, 'guarantees' => $guarantees]);
+$claim->putClaim();
 ```
 
 Attention, procéder de cette manière est déconseillée car certains champs ont une syntaxe spéciale lors de l'envoi (notement les champs contracts qui varient selon les objets). 
