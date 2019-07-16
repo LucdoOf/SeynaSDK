@@ -11,7 +11,7 @@ Un fichier ``conf.inc.php`` est livré à la racine du projet. Vous **devez**  c
 - ``MYSQL_USER`` L'utilisateur MYSQL
 - ``MYSQL_PASS`` Et enfin le mot de passe
 
-_La constance SDK_ROOT peut elle aussi être modifiée en fonction de votre installation_
+_La constance ``SDK_ROOT`` peut elle aussi être modifiée en fonction de votre installation_
 
 ### SQL :
 
