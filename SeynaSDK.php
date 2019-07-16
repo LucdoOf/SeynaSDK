@@ -1,15 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: antoine
- * Date: 12/07/19
- * Time: 14:55
- */
 
 namespace SeynaSDK;
 
 use SeynaSDK\API\RequestManager;
 use SeynaSDK\Core\Database\DatabaseConnector;
+
+/**
+ * Created by PhpStorm.
+ * User: lucas
+ * Date: 12/07/19
+ * Time: 14:55
+ */
 
 class SeynaSDK
 {

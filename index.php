@@ -1,16 +1,19 @@
 <?php
+
 /**
  * Created by PhpStorm.
- * User: antoine
+ * User: lucas
  * Date: 15/07/19
  * Time: 09:16
  */
 
 use SeynaSDK\Models\Cancel;
+use SeynaSDK\Models\Claim;
 use SeynaSDK\Models\Contract;
 use SeynaSDK\Models\Entity;
 use SeynaSDK\Models\Guarantee;
 use SeynaSDK\Models\Receipt;
+use SeynaSDK\Models\Settlement;
 use SeynaSDK\Models\Splitting;
 
 require "conf.inc.php";
@@ -28,6 +31,8 @@ require "src/model/Cancel.php";
 require "src/model/Splitting.php";
 require "src/model/Guarantee.php";
 require "src/model/Receipt.php";
+require "src/model/Claim.php";
+require "src/model/Settlement.php";
 
 function createContract() {
     $contract = new Contract();
@@ -103,6 +108,58 @@ function createReceipt($contract){
 
     var_dump($receipt->putReceipt());
 }
+
+function createClaim($contract){
+    $claim = new Claim();
+    $claim->id = "claim-test";
+    $claim->version = 0;
+    $claim->event = "new";
+    $claim->contract = $contract->id;
+    $claim->occurence = "2019-07-10";
+    $claim->location = "string";
+    $claim->notification = "2019-07-10";
+    $claim->notification = "string";
+    $claim->revaluation_reason = "string";
+    $claim->guarantees = [
+        "cancel" => new Guarantee([
+            "premium"          => 0,
+            "tax"              => 0,
+            "discount"         => 0,
+            "broker_fee"       => 0,
+            "cost_acquisition" => 0
+        ])
+    ];
+    \SeynaSDK\API\ClaimManager::createClaim("contract-test", $contract, "occurence", "location", "notification", "revaluation_reason", $guarantees);
+    var_dump($claim->putClaim());
+}
+
+function createSettlement($claim){
+    $settlement = new Settlement();
+    $settlement->id = "settlement-test";
+    $settlement->version = 0;
+    $settlement->claim = ["id"=>$claim->id, "version"=>$claim->version];
+    $settlement->guarantees = [
+        "cancel" => new Guarantee([
+            "premium"          => 0,
+            "tax"              => 0,
+            "discount"         => 0,
+            "broker_fee"       => 0,
+            "cost_acquisition" => 0
+        ])
+    ];
+
+    var_dump($settlement->putSettlement());
+}
+
+//createSettlement(Claim::getClaim("claim-test"));
+
+var_dump(Settlement::getSettlements());
+var_dump(Claim::getClaim("claim-test")->getSettlements());
+
+//var_dump(Claim::getClaims());
+
+//createClaim(Contract::getContract("contract-test-7"));
+//var_dump(Contract::getContract("contract-test-7")->getClaims());
 
 //createContract();
 //createReceipt(Contract::getContract("contract-test-7"));

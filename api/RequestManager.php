@@ -1,18 +1,19 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: antoine
- * Date: 12/07/19
- * Time: 15:06
- */
 
 namespace SeynaSDK\API;
 
 use SeynaSDK;
 use SeynaSDK\Models\Request;
 
-class RequestManager
-{
+/**
+ * Created by PhpStorm.
+ * User: lucas
+ * Date: 12/07/19
+ * Time: 15:06
+ */
+
+
+class RequestManager {
 
     /**
      * Envoie une requête et retourne l'objet Request associé
@@ -29,6 +30,14 @@ class RequestManager
         $request->send();
         $request->save();
         return $request;
+    }
+
+    /**
+     * Retourne la liste des requêtes envoyées
+     * @return Request[]
+     */
+    public function getRequests(){
+        return Request::getAll();
     }
 
 }

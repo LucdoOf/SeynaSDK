@@ -170,6 +170,24 @@ class Contract {
         return $receipts;
     }
 
+    /**
+     * Récupère la liste des claims associés
+     */
+    public function getClaims(){
+        $requestManager = SeynaSDK::getInstance()->getRequestManager();
+        $request = $requestManager->request("portfolios/".PORTFOLIO_ID."/contracts/".$this->id."/claims");
+        $response = $request->getJSONResponse();
+        $claims = [];
+        if(!empty($response["data"])){
+            foreach ($response["data"] as $claim){
+                $claims[] = new Claim($claim);
+            }
+        } else {
+            Dbg::logs("Missing data in contract getClaims()");
+        }
+        return $claims;
+    }
+
 
 
 

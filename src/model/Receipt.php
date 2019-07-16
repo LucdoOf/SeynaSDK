@@ -62,6 +62,24 @@ class Receipt {
     }
 
     /**
+     * Récupère les receipts du portofolio
+     */
+    public static function getReceipts(){
+        $requestManager = SeynaSDK::getInstance()->getRequestManager();
+        $request = $requestManager->request("portfolios/".PORTFOLIO_ID."/receipts");
+        $response = $request->getJSONResponse();
+        $receipts = [];
+        if(isset($response["data"])) {
+            foreach ($response["data"] as $receipt) {
+                $receipts[] = new Receipt($receipt);
+            }
+        } else {
+            Dbg::logs("Missing data index in getReceipts()");
+        }
+        return $receipts;
+    }
+
+    /**
      * Créé ou met a jour le receipt chez seyna
      */
     public function putReceipt(){
