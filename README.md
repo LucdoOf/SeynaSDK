@@ -34,10 +34,10 @@ CREATE TABLE `seyna_requests` (
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 ```
-
->\* Les droits d'écriture pour l'utilisateur *www-data* doivent être appliqués sur le dossier **/data**.
    
 # Utilisation
+
+>\* Les droits d'écriture pour l'utilisateur *www-data* doivent être appliqués sur le dossier **/data**.
 
 ### Avant propos : 
 Les classes du dossier api sont la pour simplifier l'utilisation du SDK mais ne remplacent pas toutes les fonctionnalitées
