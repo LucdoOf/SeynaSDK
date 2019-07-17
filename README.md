@@ -41,8 +41,10 @@ CREATE TABLE `seyna_requests` (
 Les classes du dossier api sont la pour simplifier l'utilisation du SDK mais ne remplacent pas toutes les fonctionnalitées
 disponibles dans les objets. Des fonctions statiques seront ajoutées au fur et à mesure dans les manager.   
 
-### Droits :
-Les droits d'écriture pour l'utilisateur *www-data* doivent être appliqués sur le dossier **/data**.
+### Logs :
+Un système de logs est disponible pour le projet. Il est accessible via la classe Dbg et propose différents niveaux d'importance
+pour chaque message. Les logs sont écrites dans le dossier ``/data/logs/<année>/<mois>/<jour>.txt``
+>\* Les droits d'écriture pour l'utilisateur *www-data* doivent être appliqués sur le dossier **/data**.
 
 ### Liste des objets :
 Les objets fournis dans le SDK sont les suivants:
