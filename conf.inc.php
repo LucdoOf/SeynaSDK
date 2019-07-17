@@ -12,7 +12,8 @@ define("PORTFOLIO_ID", "ticketmate");
 define("SEYNA_URL", "https://75kyb3s3q9.execute-api.eu-west-1.amazonaws.com/prod/");
 define("IS_DEV", true);
 
-define('MYSQL_DB', 'phenomen');
-define('MYSQL_HOST', 'database.borealdev.net');
-define('MYSQL_USER', 'root');
-define('MYSQL_PASS', 'b9xclkKD');
+//Already defined before
+/**define('MYSQL_DB', MYSQL_DB);
+define('MYSQL_HOST', MYSQL_HOST);
+define('MYSQL_USER', MYSQL_USER);
+define('MYSQL_PASS', MYSQL_PASS);**/
