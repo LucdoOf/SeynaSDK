@@ -7,6 +7,7 @@ use SeynaSDK\Models\Contract;
 use SeynaSDK\Models\Entity;
 use SeynaSDK\Models\Guarantee;
 use SeynaSDK\Models\Splitting;
+use App\Core\Dbg;
 
 /**
  * Created by PhpStorm.
@@ -52,7 +53,7 @@ abstract class ContractManager {
         $contract->insured = $insured;
         $contract->event = "new";
         $contract->version = 0;
-        $contract->putContract();
+        Dbg::logs($contract->putContract(), Dbg::L_NOTICE);
         return $contract;
     }
 

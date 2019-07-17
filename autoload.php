@@ -10,15 +10,23 @@
 include "conf.inc.php";
 
 function autoloader($class){
-    if(file_exists($class . ".php")){
-        include $class . ".php";
-    } else if(file_exists("utils/".$class . ".php")){
-        include "utils/" . $class . ".php";
-    } else if(file_exists("src/model/".$class.".php")){
-        include "src/model/".$class.".php";
-    } else if(file_exists("src/core/".$class.".php")){
-        include "src/core/".$class.".php";
-    } else if(file_exists("api/".$class.".php")){
-        include "api/".$class.".php";
+    $array = explode("\\", $class);
+    $class = $array[count($array)-1];
+    if(file_exists(SDK_ROOT . $class . ".php")){
+        include SDK_ROOT . $class . ".php";
+    } else if(file_exists(SDK_ROOT . "utils/".$class . ".php")){
+        include SDK_ROOT . "utils/" . $class . ".php";
+    } else if(file_exists(SDK_ROOT . "src/model/".$class.".php")){
+        include SDK_ROOT . "src/model/".$class.".php";
+    } else if(file_exists(SDK_ROOT . "src/core/".$class.".php")){
+        include SDK_ROOT . "src/core/".$class.".php";
+    } else if(file_exists(SDK_ROOT . "api/".$class.".php")){
+        include SDK_ROOT ."api/".$class.".php";
+    } else if(file_exists(SDK_ROOT . "src/core/database/".$class.".php")){
+        include SDK_ROOT ."src/core/database/".$class.".php";
     }
 }
+
+spl_autoload_register(function ($class){
+    autoloader($class);
+});

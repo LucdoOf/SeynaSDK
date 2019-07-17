@@ -8,6 +8,10 @@
 
 namespace SeynaSDK\Models;
 
+use DateTime;
+use Exception;
+use SeynaSDK\Core\Database\Sql;
+
 class Request extends Model
 {
 
@@ -82,6 +86,36 @@ class Request extends Model
      */
     public function getJSONResponse(){
         return json_decode($this->response, true);
+    }
+
+    /**
+     * Sauvegarde de l'objet vers la base de données
+     *
+     * @return boolean|int
+     */
+    public function save() {
+        $ret = [];
+        foreach (static::$columns as $c) {
+            if($c == "response" || $c == "body"){
+                $ret[$c] = json_encode($this->{$c});
+            } else {
+                $ret[$c] = $this->{$c};
+            }
+        }
+
+        if ($this->id == 0) {
+            $ret[static::IDC] = null;
+            if (key_exists('created_at', $ret) && is_null($ret['created_at'])) {
+                try {
+                    $ret['created_at'] = new DateTime();
+                } catch (Exception $e) {
+                }
+            }
+            $this->id = Sql::insert(static::TBNAME, $ret);
+            return $this->id;
+        }
+
+        return Sql::update(static::TBNAME, $ret, $this->id, static::IDC);
     }
 
 }

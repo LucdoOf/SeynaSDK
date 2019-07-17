@@ -2,6 +2,7 @@
 
 namespace SeynaSDK\API;
 
+use SeynaSDK\Core\Dbg;
 use SeynaSDK\Models\Contract;
 use SeynaSDK\Models\Guarantee;
 use SeynaSDK\Models\Receipt;
@@ -38,7 +39,7 @@ abstract class ReceiptManager {
         $receipt->start = $start;
         $receipt->end = $end;
         $receipt->guarantees = $guarantees;
-        $receipt->putReceipt();
+        Dbg::logs($receipt->putReceipt(), Dbg::L_NOTICE);
         return $receipt;
     }
 
