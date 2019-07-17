@@ -37,11 +37,12 @@ CREATE TABLE `seyna_requests` (
    
 # Utilisation
 
->\* Les droits d'écriture pour l'utilisateur *www-data* doivent être appliqués sur le dossier **/data**.
-
 ### Avant propos : 
 Les classes du dossier api sont la pour simplifier l'utilisation du SDK mais ne remplacent pas toutes les fonctionnalitées
 disponibles dans les objets. Des fonctions statiques seront ajoutées au fur et à mesure dans les manager.   
+
+### Droits :
+Les droits d'écriture pour l'utilisateur *www-data* doivent être appliqués sur le dossier **/data**.
 
 ### Liste des objets :
 Les objets fournis dans le SDK sont les suivants:
@@ -65,4 +66,4 @@ $claim = new Claim(['id' => $id, 'contract' => $contract-id, 'occurence' => $occ
 $claim->putClaim();
 ```
 
-_Attention, procéder de cette manière est déconseillée car certains champs ont une syntaxe spéciale lors de l'envoi (notement les champs contracts qui varient selon les objets)._ 
+>\* Attention, procéder de cette manière est déconseillée car certains champs ont une syntaxe spéciale lors de l'envoi (notement les champs contracts qui varient selon les objets)._ 
