@@ -2,12 +2,12 @@
 
 namespace SeynaSDK\API;
 
+use SeynaSDK\Core\Dbg;
 use SeynaSDK\Models\Cancel;
 use SeynaSDK\Models\Contract;
 use SeynaSDK\Models\Entity;
 use SeynaSDK\Models\Guarantee;
 use SeynaSDK\Models\Splitting;
-use App\Core\Dbg;
 
 /**
  * Created by PhpStorm.
@@ -15,8 +15,8 @@ use App\Core\Dbg;
  * Date: 16/07/19
  * Time: 09:35
  */
-
-abstract class ContractManager {
+abstract class ContractManager
+{
 
     /**
      * @param $id String
@@ -35,7 +35,22 @@ abstract class ContractManager {
      * @param $insured Entity[]
      * @return Contract
      */
-    public static function createContract($id,$guarantees,$cancel,$extra_broker_fee,$coinsurance,$end,$start,$subscription,$issuance,$splitting,$beneficiary,$customer,$subscriber,$insured){
+    public static function createContract(
+        $id,
+        $guarantees,
+        $cancel,
+        $extra_broker_fee,
+        $coinsurance,
+        $end,
+        $start,
+        $subscription,
+        $issuance,
+        $splitting,
+        $beneficiary,
+        $customer,
+        $subscriber,
+        $insured
+    ) {
         $contract = new Contract();
         $contract->id = $id;
         $contract->guarantees = $guarantees;
@@ -56,6 +71,4 @@ abstract class ContractManager {
         Dbg::logs($contract->putContract(), Dbg::L_NOTICE);
         return $contract;
     }
-
-
 }

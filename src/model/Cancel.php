@@ -5,18 +5,12 @@ namespace SeynaSDK\Models;
 use SeynaSDK\Core\Dbg;
 use SeynaSDK\Utils\JSONBuilder;
 
-/**
- * Created by PhpStorm.
- * User: lucas
- * Date: 15/07/19
- * Time: 10:17
- */
-
-class Cancel {
+class Cancel
+{
 
     use JSONBuilder;
 
-    static $columns = ["date","reason"];
+    static $columns = ["date", "reason"];
 
     /** @var Date de l'annulation string<date-time> */
     public $date;
@@ -25,17 +19,16 @@ class Cancel {
 
     /**
      * Cancel constructor.
+     *
      * @param array $data Array Données reçues
      */
     public function __construct($data = []) {
-        foreach ($data as $k => $v){
-            if(property_exists($this,$k)){
+        foreach ($data as $k => $v) {
+            if (property_exists($this, $k)) {
                 $this->{$k} = $v;
             } else {
                 Dbg::logs("Missing variable in Cancel: " . $k . " => " . $v, Dbg::L_ERROR);
             }
         }
     }
-
-
 }

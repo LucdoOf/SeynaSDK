@@ -68,4 +68,4 @@ $claim = new Claim(['id' => $id, 'contract' => $contract-id, 'occurence' => $occ
 $claim->putClaim();
 ```
 
->\* Attention, procéder de cette manière est déconseillée car certains champs ont une syntaxe spéciale lors de l'envoi (notement les champs contracts qui varient selon les objets)
+>\* Attention, procéder de cette manière est déconseillée car certains champs ont une syntaxe spéciale lors de l'envoi (notamment les champs contracts qui varient selon les objets)

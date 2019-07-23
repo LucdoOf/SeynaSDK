@@ -4,9 +4,9 @@ namespace SeynaSDK\Core\Database;
 
 use Error;
 use Exception;
-use SeynaSDK\Core\Dbg;
 use PDO;
 use PDOStatement;
+use SeynaSDK\Core\Dbg;
 
 class DatabaseConnector
 {

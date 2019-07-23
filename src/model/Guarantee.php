@@ -11,14 +11,14 @@ use SeynaSDK\Utils\JSONBuilder;
  * Date: 15/07/19
  * Time: 10:21
  */
-
-class Guarantee {
+class Guarantee
+{
 
     use JSONBuilder;
 
-    static $columns = ["premium","tax","discount","broker_fee","cost_acquisition"];
+    static $columns = ["premium", "tax", "discount", "broker_fee", "cost_acquisition"];
 
-    /** @var Premium without tax, fees, commissions Number >= 0*/
+    /** @var Premium without tax, fees, commissions Number >= 0 */
     private $premium;
     /** @var Tax paid Number >= 0 */
     private $tax;
@@ -31,11 +31,12 @@ class Guarantee {
 
     /**
      * Guarantee constructor.
+     *
      * @param array $data Array Données reçues
      */
     public function __construct($data = []) {
-        foreach ($data as $k => $v){
-            if(property_exists($this,$k)){
+        foreach ($data as $k => $v) {
+            if (property_exists($this, $k)) {
                 $this->{$k} = $v;
             } else {
                 Dbg::logs("Missing variable in Guarantee: " . $k . " => " . $v, Dbg::L_ERROR);

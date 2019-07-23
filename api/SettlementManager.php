@@ -12,8 +12,8 @@ use SeynaSDK\Models\Settlement;
  * Date: 16/07/19
  * Time: 09:55
  */
-
-abstract class SettlementManager {
+abstract class SettlementManager
+{
 
     /**
      * @param $id String
@@ -21,11 +21,11 @@ abstract class SettlementManager {
      * @param $guarantees Guarantee[]
      * @return Settlement
      */
-    public static function createSettlement($id,$claim,$guarantees){
+    public static function createSettlement($id, $claim, $guarantees) {
         $settlement = new Settlement();
         $settlement->id = $id;
         $settlement->version = 0;
-        $settlement->claim = ["id"=>$claim->id, "version"=>$claim->version];
+        $settlement->claim = ["id" => $claim->id, "version" => $claim->version];
         $settlement->guarantees = $guarantees;
         $settlement->putSettlement();
         return $settlement;

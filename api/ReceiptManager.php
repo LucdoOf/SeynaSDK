@@ -13,8 +13,8 @@ use SeynaSDK\Models\Receipt;
  * Date: 16/07/19
  * Time: 09:44
  */
-
-abstract class ReceiptManager {
+abstract class ReceiptManager
+{
 
     /**
      * @param $id String
@@ -27,12 +27,12 @@ abstract class ReceiptManager {
      * @param $guarantees Guarantee[]
      * @return Receipt
      */
-    public static function createReceipt($id,$contract,$issued,$due,$paid,$start,$end,$guarantees){
+    public static function createReceipt($id, $contract, $issued, $due, $paid, $start, $end, $guarantees) {
         $receipt = new Receipt();
         $receipt->id = $id;
         $receipt->version = 0;
         $receipt->event = "new";
-        $receipt->contract = ["id" => $contract->id, "version" => $contract->version,"url" => $contract->url];
+        $receipt->contract = ["id" => $contract->id, "version" => $contract->version, "url" => $contract->url];
         $receipt->issued = $issued;
         $receipt->due = $due;
         $receipt->paid = $paid;

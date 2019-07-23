@@ -11,12 +11,12 @@ use SeynaSDK\Utils\JSONBuilder;
  * Date: 15/07/19
  * Time: 10:16
  */
-
-class Splitting {
+class Splitting
+{
 
     use JSONBuilder;
 
-    static $columns = ["type","fee"];
+    static $columns = ["type", "fee"];
 
     /** @var Type du splitting eg: Monthly */
     public $type;
@@ -25,11 +25,12 @@ class Splitting {
 
     /**
      * Splitting constructor.
+     *
      * @param array $data Array Données reçues
      */
     public function __construct($data = []) {
-        foreach ($data as $k => $v){
-            if(property_exists($this,$k)){
+        foreach ($data as $k => $v) {
+            if (property_exists($this, $k)) {
                 $this->{$k} = $v;
             } else {
                 Dbg::logs("Missing variable in Splitting: " . $k . " => " . $v, Dbg::L_ERROR);

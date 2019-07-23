@@ -2,9 +2,9 @@
 
 namespace SeynaSDK\Models;
 
+use SeynaSDK\Core\Dbg;
 use SeynaSDK\SeynaSDK;
 use SeynaSDK\Utils\JSONBuilder;
-use SeynaSDK\Core\Dbg;
 
 /**
  * Created by PhpStorm.
@@ -12,12 +12,12 @@ use SeynaSDK\Core\Dbg;
  * Date: 15/07/19
  * Time: 14:36
  */
-
-class Receipt {
+class Receipt
+{
 
     use JSONBuilder;
 
-    static $columns = ["id","version","event","contract","issued","due","paid","start","end","guarantees"];
+    static $columns = ["id", "version", "event", "contract", "issued", "due", "paid", "start", "end", "guarantees"];
 
     /** @var Indentifiant du reçu (unique par portfolio) */
     public $id;
@@ -42,14 +42,15 @@ class Receipt {
 
     /**
      * Splitting constructor.
+     *
      * @param array $data Array Données reçues
      */
     public function __construct($data = []) {
-        foreach ($data as $k => $v){
-            if(property_exists($this,$k)){
-                if($k == "guarantees"){
+        foreach ($data as $k => $v) {
+            if (property_exists($this, $k)) {
+                if ($k == "guarantees") {
                     $this->{$k} = [];
-                    foreach ($v as $kk => $vv){
+                    foreach ($v as $kk => $vv) {
                         $this->{$k}[$kk] = new Guarantee($vv);
                     }
                 } else {
@@ -64,12 +65,12 @@ class Receipt {
     /**
      * Récupère les receipts du portofolio
      */
-    public static function getReceipts(){
+    public static function getReceipts() {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
-        $request = $requestManager->request("portfolios/".PORTFOLIO_ID."/receipts");
+        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/receipts");
         $response = $request->getJSONResponse();
         $receipts = [];
-        if(isset($response["data"])) {
+        if (isset($response["data"])) {
             foreach ($response["data"] as $receipt) {
                 $receipts[] = new Receipt($receipt);
             }
@@ -82,23 +83,24 @@ class Receipt {
     /**
      * Créé ou met a jour le receipt chez seyna
      */
-    public function putReceipt(){
+    public function putReceipt() {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
         $data = $this->toJSON();
-        $request = $requestManager->request("portfolios/".PORTFOLIO_ID."/receipts/".$this->id, "PUT", $data);
+        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/receipts/" . $this->id, "PUT", $data);
         return $request;
     }
 
     /**
      * Récupère un receipt par son identifiant unique
+     *
      * @param $id
      * @return Receipt|Request
      */
-    public static function getReceipt($id){
+    public static function getReceipt($id) {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
-        $request = $requestManager->request("portfolios/".PORTFOLIO_ID."/receipts/".$id);
+        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/receipts/" . $id);
         $response = $request->getJSONResponse();
-        if(!empty($response)){
+        if (!empty($response)) {
             return new Receipt($response);
         } else {
             Dbg::logs("Unknown receipt " . $id);
@@ -109,12 +111,12 @@ class Receipt {
     /**
      * Récupère la liste des receipt par version
      */
-    public function getHistory(){
+    public function getHistory() {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
-        $request = $requestManager->request("portfolios/".PORTFOLIO_ID."/receipts/".$this->id."/versions");
+        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/receipts/" . $this->id . "/versions");
         $response = $request->getJSONResponse();
         $contracts = [];
-        if(isset($response["data"])){
+        if (isset($response["data"])) {
             foreach ($response["data"] as $contract) {
                 $contracts[] = new Receipt($contract);
             }

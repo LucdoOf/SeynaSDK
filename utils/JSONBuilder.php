@@ -10,18 +10,18 @@ use SeynaSDK\Core\Dbg;
  * Date: 15/07/19
  * Time: 10:58
  */
-
-trait JSONBuilder {
+trait JSONBuilder
+{
 
     /**
      * JSON-IFIER
      * @return array
      */
-    public function toJSON(){
+    public function toJSON() {
         $col = $this::$columns;
         $data = [];
-        foreach ($col as $k){
-            if(property_exists($this,$k)) {
+        foreach ($col as $k) {
+            if (property_exists($this, $k)) {
                 $data[$k] = $this->{$k};
             } else {
                 Dbg::logs("Missing variable in JSONBuilder " . $k, Dbg::L_ERROR);
@@ -33,16 +33,17 @@ trait JSONBuilder {
 
     /**
      * Formatting array to strings and int only (->toJSON on objects)
+     *
      * @param $array
      * @return array
      */
-    public function formatArray($array){
+    public function formatArray($array) {
         $return = [];
-        foreach ($array as $key => $value){
-            if(is_array($value)){
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
                 $return[$key] = $this->formatArray($value);
             } else {
-                if(is_object($value)){
+                if (is_object($value)) {
                     $return[$key] = $value->toJSON();
                 } else {
                     $return[$key] = $value;

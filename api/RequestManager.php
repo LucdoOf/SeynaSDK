@@ -11,18 +11,18 @@ use SeynaSDK\Models\Request;
  * Date: 12/07/19
  * Time: 15:06
  */
-
-
-class RequestManager {
+class RequestManager
+{
 
     /**
      * Envoie une requête et retourne l'objet Request associé
+     *
      * @param $uri
      * @param $method
      * @param $body
      * @return Request
      */
-    public function request($uri, $method = "GET", $body = null){
+    public function request($uri, $method = "GET", $body = null) {
         $request = new Request();
         $request->uri = SEYNA_URL . $uri;
         $request->method = $method;
@@ -34,9 +34,10 @@ class RequestManager {
 
     /**
      * Retourne la liste des requêtes envoyées
+     *
      * @return Request[]
      */
-    public function getRequests(){
+    public function getRequests() {
         return Request::getAll();
     }
 

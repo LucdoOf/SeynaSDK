@@ -2,9 +2,9 @@
 
 namespace SeynaSDK\API;
 
+use SeynaSDK\Models\Claim;
 use SeynaSDK\Models\Contract;
 use SeynaSDK\Models\Guarantee;
-use SeynaSDK\Models\Claim;
 
 /**
  * Created by PhpStorm.
@@ -12,8 +12,8 @@ use SeynaSDK\Models\Claim;
  * Date: 16/07/19
  * Time: 09:49
  */
-
-abstract class ClaimManager {
+abstract class ClaimManager
+{
 
     /**
      * @param $id String
@@ -25,7 +25,7 @@ abstract class ClaimManager {
      * @param $guarantees Guarantee[]
      * @return Claim
      */
-    public static function createClaim($id,$contract,$occurence,$location,$notification,$revaluation_reason,$guarantees){
+    public static function createClaim($id, $contract, $occurence, $location, $notification, $revaluation_reason, $guarantees) {
         $claim = new Claim();
         $claim->id = $id;
         $claim->version = 0;

@@ -5,20 +5,14 @@ namespace SeynaSDK\Models;
 use SeynaSDK\Core\Dbg;
 use SeynaSDK\Utils\JSONBuilder;
 
-/**
- * Created by PhpStorm.
- * User: lucas
- * Date: 15/07/19
- * Time: 10:02
- */
-
-class Entity {
+class Entity
+{
 
     use JSONBuilder;
 
-    static $columns = ["type","name","registration","representative","address","email","phone","birthday"];
+    static $columns = ["type", "name", "registration", "representative", "address", "email", "phone", "birthday"];
 
-    /** @var Type de l'entitié eg: indidivual, company, nonprofit */
+    /** @var Type de l'entitié eg: individual, company, nonprofit */
     public $type;
     /** @var Full name de la personne ou de la compagnie */
     public $name;
@@ -37,11 +31,12 @@ class Entity {
 
     /**
      * Contract constructor.
+     *
      * @param array $data Array Données reçues
      */
     public function __construct($data = []) {
-        foreach ($data as $k => $v){
-            if(property_exists($this,$k)){
+        foreach ($data as $k => $v) {
+            if (property_exists($this, $k)) {
                 $this->{$k} = $v;
             } else {
                 Dbg::logs("Missing variable in Entity: " . $k . " => " . $v, Dbg::L_ERROR);

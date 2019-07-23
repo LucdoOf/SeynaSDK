@@ -49,7 +49,7 @@ class Dbg
             $msg = print_r($msg, true);
         }
 
-        if(is_object($msg)) {
+        if (is_object($msg)) {
             $msg = json_encode($msg);
         }
 

@@ -11,7 +11,6 @@ use SeynaSDK\Core\Database\DatabaseConnector;
  * Date: 12/07/19
  * Time: 14:55
  */
-
 class SeynaSDK
 {
 
@@ -20,6 +19,7 @@ class SeynaSDK
 
     /** @var RequestManager */
     private $requestManager;
+
     /** @var DatabaseConnector */
     private $database;
 
@@ -32,6 +32,7 @@ class SeynaSDK
 
     /**
      * Retourne l'objet RequestManager correspondant au SDK
+     *
      * @return RequestManager
      */
     public function getRequestManager() {
@@ -47,11 +48,10 @@ class SeynaSDK
 
     /**
      * Retourne l'instance actuelle du SDK ou en créé une
+     *
      * @return SeynaSDK
      */
-    public static function getInstance(){
+    public static function getInstance() {
         return isset(self::$instance) ? self::$instance : new SeynaSDK();
     }
-
-
 }

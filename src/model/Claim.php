@@ -2,22 +2,26 @@
 
 namespace SeynaSDK\Models;
 
-use SeynaSDK\Utils\JSONBuilder;
 use SeynaSDK\Core\Dbg;
 use SeynaSDK\SeynaSDK;
+use SeynaSDK\Utils\JSONBuilder;
 
-/**
- * Created by PhpStorm.
- * User: lucas
- * Date: 15/07/19
- * Time: 15:54
- */
-
-class Claim {
-
+class Claim
+{
     use JSONBuilder;
 
-    static $columns = ["id","version","event","contract","occurence","location","notification","claim_type","revaluation_reason","guarantees"];
+    static $columns = [
+        "id",
+        "version",
+        "event",
+        "contract",
+        "occurence",
+        "location",
+        "notification",
+        "claim_type",
+        "revaluation_reason",
+        "guarantees",
+    ];
 
     /** @var Identifiant du claim */
     public $id;
@@ -42,14 +46,15 @@ class Claim {
 
     /**
      * Claim constructor.
+     *
      * @param array $data Array Données reçues
      */
     public function __construct($data = []) {
-        foreach ($data as $k => $v){
-            if(property_exists($this,$k)){
-                if($k == "guarantees"){
+        foreach ($data as $k => $v) {
+            if (property_exists($this, $k)) {
+                if ($k == "guarantees") {
                     $this->{$k} = [];
-                    foreach ($v as $kk => $vv){
+                    foreach ($v as $kk => $vv) {
                         $this->{$k}[$kk] = new Guarantee($vv);
                     }
                 } else {
@@ -64,12 +69,12 @@ class Claim {
     /**
      * Récupère les claims du portofolio
      */
-    public static function getClaims(){
+    public static function getClaims() {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
-        $request = $requestManager->request("portfolios/".PORTFOLIO_ID."/claims");
+        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/claims");
         $response = $request->getJSONResponse();
         $claims = [];
-        if(isset($response["data"])) {
+        if (isset($response["data"])) {
             foreach ($response["data"] as $claim) {
                 $claims[] = new Claim($claim);
             }
@@ -82,23 +87,24 @@ class Claim {
     /**
      * Créé ou met a jour le claim chez seyna
      */
-    public function putClaim(){
+    public function putClaim() {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
         $data = $this->toJSON();
-        $request = $requestManager->request("portfolios/".PORTFOLIO_ID."/claims/".$this->id, "PUT", $data);
+        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/claims/" . $this->id, "PUT", $data);
         return $request;
     }
 
     /**
      * Récupère un claim par son identifiant unique
+     *
      * @param $id
      * @return Claim|Request
      */
-    public static function getClaim($id){
+    public static function getClaim($id) {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
-        $request = $requestManager->request("portfolios/".PORTFOLIO_ID."/claims/".$id);
+        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/claims/" . $id);
         $response = $request->getJSONResponse();
-        if(!empty($response)){
+        if (!empty($response)) {
             return new Claim($response);
         } else {
             Dbg::logs("Unknown claim " . $id);
@@ -109,12 +115,12 @@ class Claim {
     /**
      * Récupère la liste des claim par version
      */
-    public function getHistory(){
+    public function getHistory() {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
-        $request = $requestManager->request("portfolios/".PORTFOLIO_ID."/claims/".$this->id."/versions");
+        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/claims/" . $this->id . "/versions");
         $response = $request->getJSONResponse();
         $claims = [];
-        if(isset($response["data"])){
+        if (isset($response["data"])) {
             foreach ($response["data"] as $claim) {
                 $claims[] = new Claim($claim);
             }
@@ -127,13 +133,13 @@ class Claim {
     /**
      * Récupère la liste des settlements associés
      */
-    public function getSettlements(){
+    public function getSettlements() {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
-        $request = $requestManager->request("portfolios/".PORTFOLIO_ID."/claims/".$this->id."/settlements");
+        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/claims/" . $this->id . "/settlements");
         $response = $request->getJSONResponse();
         $settlements = [];
-        if(isset($response["data"])){
-            foreach ($response["data"] as $settlement){
+        if (isset($response["data"])) {
+            foreach ($response["data"] as $settlement) {
                 $settlements[] = new Settlement($settlement);
             }
         } else {
