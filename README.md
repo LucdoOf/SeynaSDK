@@ -2,7 +2,7 @@
 
 Pour installer le projet il vous suffit de le cloner dans votre projet initial et de configurer git avec le projet. (Pour PhpStorm File -> Settings -> Version Control)
 
->\* Avant d'utiliser l'API veillez à inclure le fichier autoload.php dans votre index 
+>\* Avant d'utiliser l'API veillez à inclure le fichier boot.php dans votre index 
 
 ### Configuration :
 
@@ -10,30 +10,8 @@ Un fichier ``conf.inc.php`` est livré à la racine du projet. Vous **devez**  c
 - ``PORTFOLIO_ID`` Doit être configuré avec votre identifiant SEYNA
 - ``SEYNA_URL`` Doit correspondre à l'URL SEYNA sur laquelle vous pouvez faire vos appels
 - ``IS_DEV`` Doit être mis à ``false`` en production et ``true`` en développement  
-- ``MYSQL_DB`` Doit correspondre au nom de votre base de donnée
-- ``MYSQL_HOST`` L'hote que vous souhaitez utiliser
-- ``MYSQL_USER`` L'utilisateur MYSQL
-- ``MYSQL_PASS`` Et enfin le mot de passe
 
 _La constance ``SDK_ROOT`` peut elle aussi être modifiée en fonction de votre installation_
-
-### SQL :
-
-Vous n'avez pas besoin de créer une base de donnée à part, simplement d'executer ce script SQL dans votre base de donnée courante
-
-```sql
-CREATE TABLE `seyna_requests` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `uri` varchar(255) NOT NULL,
-    `method` varchar(255) NOT NULL,
-    `httpStatus` varchar(255) NOT NULL,
-    `response` text NOT NULL,
-    `body` text NOT NULL,
-    `error` varchar(255) NOT NULL,
-    `stamp` int(11) NOT NULL,
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
-```
    
 # Utilisation
 

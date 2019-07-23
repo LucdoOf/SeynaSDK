@@ -10,16 +10,17 @@ namespace SeynaSDK\Models;
 
 use DateTime;
 use Exception;
-use SeynaSDK\Core\Database\Sql;
+use SeynaSDK\Core\Sql;
 
-class Request extends Model
+class Request
 {
 
     /** @var array Colonnes a sauvegarder en SQL */
     public static $columns = ["id", "uri", "method", "httpStatus", "response", "body", "error", "stamp"];
 
-    /** Table de stockage SQL */
-    const TBNAME = "seyna_requests";
+    /** Table de stockage SQL
+    const TBNAME = "seyna_requests"; */
+
     /** @var string Requête POST */
     const POST = "POST";
     /** @var string Requête PUT */
@@ -41,15 +42,6 @@ class Request extends Model
     public $error;
     /** @var int Stamp d'envoie de la requête */
     public $stamp;
-
-    /**
-     * Request constructor.
-     *
-     * @param int $id
-     */
-    public function __construct(int $id = 0) {
-        parent::__construct($id);
-    }
 
     /**
      * Envoie la requête et sauvegarde l'objet en base de donnée
@@ -96,7 +88,6 @@ class Request extends Model
      * Sauvegarde de l'objet vers la base de données
      *
      * @return boolean|int
-     */
     public function save() {
         $ret = [];
         foreach (static::$columns as $c) {
@@ -121,5 +112,6 @@ class Request extends Model
 
         return Sql::update(static::TBNAME, $ret, $this->id, static::IDC);
     }
+    */
 
 }

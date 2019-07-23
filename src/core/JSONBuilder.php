@@ -1,8 +1,6 @@
 <?php
 
-namespace SeynaSDK\Utils;
-
-use SeynaSDK\Core\Dbg;
+namespace SeynaSDK\Core;
 
 /**
  * Created by PhpStorm.

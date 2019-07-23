@@ -3,7 +3,7 @@
 namespace SeynaSDK\Models;
 
 use SeynaSDK\Core\Dbg;
-use SeynaSDK\Utils\JSONBuilder;
+use SeynaSDK\Core\JSONBuilder;
 
 class Entity
 {

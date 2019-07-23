@@ -1,6 +1,6 @@
 <?php
 
-namespace SeynaSDK\API;
+namespace SeynaSDK\Helpers;
 
 use SeynaSDK;
 use SeynaSDK\Models\Request;
@@ -28,7 +28,7 @@ class RequestManager
         $request->method = $method;
         $request->body = $body;
         $request->send();
-        $request->save();
+        //$request->save();
         return $request;
     }
 

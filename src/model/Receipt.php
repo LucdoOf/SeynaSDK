@@ -4,7 +4,7 @@ namespace SeynaSDK\Models;
 
 use SeynaSDK\Core\Dbg;
 use SeynaSDK\SeynaSDK;
-use SeynaSDK\Utils\JSONBuilder;
+use SeynaSDK\Core\JSONBuilder;
 
 /**
  * Created by PhpStorm.

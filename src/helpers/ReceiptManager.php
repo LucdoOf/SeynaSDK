@@ -1,6 +1,6 @@
 <?php
 
-namespace SeynaSDK\API;
+namespace SeynaSDK\Helpers;
 
 use SeynaSDK\Core\Dbg;
 use SeynaSDK\Models\Contract;

@@ -1,6 +1,6 @@
 <?php
 
-namespace SeynaSDK\API;
+namespace SeynaSDK\Helpers;
 
 use SeynaSDK\Models\Claim;
 use SeynaSDK\Models\Contract;

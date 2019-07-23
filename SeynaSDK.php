@@ -2,8 +2,7 @@
 
 namespace SeynaSDK;
 
-use SeynaSDK\API\RequestManager;
-use SeynaSDK\Core\Database\DatabaseConnector;
+use SeynaSDK\Core\RequestManager;
 
 /**
  * Created by PhpStorm.
@@ -20,9 +19,6 @@ class SeynaSDK
     /** @var RequestManager */
     private $requestManager;
 
-    /** @var DatabaseConnector */
-    private $database;
-
     /**
      * SeynaSDK constructor.
      */
@@ -37,13 +33,6 @@ class SeynaSDK
      */
     public function getRequestManager() {
         return $this->requestManager;
-    }
-
-    /**
-     * @return DatabaseConnector
-     */
-    public function getDb() {
-        return isset($this->database) ? $this->database : new DatabaseConnector(MYSQL_DB, MYSQL_USER, MYSQL_PASS, MYSQL_HOST, IS_DEV);
     }
 
     /**
