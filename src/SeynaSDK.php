@@ -2,7 +2,7 @@
 
 namespace SeynaSDK;
 
-use SeynaSDK\Core\RequestManager;
+use SeynaSDK\Helpers\RequestManager;
 
 /**
  * Created by PhpStorm.
