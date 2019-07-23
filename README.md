@@ -16,7 +16,7 @@ _La constance ``SDK_ROOT`` peut elle aussi être modifiée en fonction de votre 
 # Utilisation
 
 ### Avant propos : 
-Les classes du dossier api sont la pour simplifier l'utilisation du SDK mais ne remplacent pas toutes les fonctionnalitées
+Les classes du dossier helpers sont la pour simplifier l'utilisation du SDK mais ne remplacent pas toutes les fonctionnalitées
 disponibles dans les objets. Des fonctions statiques seront ajoutées au fur et à mesure dans les manager.   
 
 ### Logs :
@@ -34,15 +34,28 @@ Pour créer un objet deux options sont possibles, la première utiliser les clas
 d'instancier un objet avec une array associative contenant toutes ses variables puis d'appeler sa méthode `putObject`. Exemple d'instanciation d'un objet Claim: 
 ```php
 <?php
-ClaimManager::createClaim("contract-test", $contract, "occurence",
- "location", "notification", "revaluation_reason", $guarantees);
+ClaimManager::createClaim(
+    "contract-test",
+    $contract,
+    "occurence",
+    "location",
+    "notification",
+    "revaluation_reason",
+    $guarantees
+);
 ```
 Et avec la deuxième méthode: 
 ```php
 <?php
-$claim = new Claim(['id' => $id, 'contract' => $contract-id, 'occurence' => $occurence,
- 'location' => $location, 'notification' => $notification,
- 'revaluation_reason' => $reason, 'guarantees' => $guarantees]);
+$claim = new Claim([
+    'id' => $id,
+    'contract' => $contract->id,
+    'occurence' => $occurence,
+    'location' => $location,
+    'notification' => $notification,
+    'revaluation_reason' => $reason,
+    'guarantees' => $guarantees
+]);
 $claim->putClaim();
 ```
 
