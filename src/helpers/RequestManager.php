@@ -26,9 +26,11 @@ class RequestManager
         $request = new Request();
         $request->uri = SEYNA_URL . $uri;
         $request->method = $method;
+        if(is_array($body)){
+            $body["portfolio"] = PORTFOLIO_ID;
+        }
         $request->body = $body;
         $request->send();
-        //$request->save();
         return $request;
     }
 

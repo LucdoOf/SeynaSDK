@@ -16,18 +16,18 @@ abstract class SettlementManager
 {
 
     /**
-     * @param $id String
+     * @param $ref String
      * @param $claim Claim
      * @param $guarantees Guarantee[]
      * @return Settlement
      */
-    public static function createSettlement($id, $claim, $guarantees) {
+    public static function createSettlement($ref, $claim, $guarantees) {
         $settlement = new Settlement();
-        $settlement->id = $id;
+        $settlement->ref = $ref;
         $settlement->version = 0;
         $settlement->claim = ["id" => $claim->id, "version" => $claim->version];
         $settlement->guarantees = $guarantees;
-        $settlement->putSettlement();
+        $settlement->createSettlement();
         return $settlement;
     }
 

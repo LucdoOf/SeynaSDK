@@ -17,10 +17,12 @@ class Settlement
 
     use JSONBuilder;
 
-    static $columns = ["id", "version", "claim", "guarantees"];
+    static $columns = ["id", "ref", "version", "claim", "guarantees"];
 
     /** @var Identifiant du règlement */
     public $id;
+    /** @var Réference du règlement */
+    public $ref;
     /** @var Version du règlement */
     public $version;
     /** @var Claim associé */
@@ -69,12 +71,22 @@ class Settlement
     }
 
     /**
-     * Créé ou met a jour le settlement chez seyna
+     * Créé le settlement chez seyna
      */
-    public function putSettlement() {
+    public function createSettlement() {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
         $data = $this->toJSON();
-        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/settlements/" . $this->id, "PUT", $data);
+        $request = $requestManager->request("/settlements/", "POST", $data);
+        return $request;
+    }
+
+    /**
+     * Met à jour le settlement chez seyna
+     */
+    public function updateSettlement() {
+        $requestManager = SeynaSDK::getInstance()->getRequestManager();
+        $data = $this->toJSON();
+        $request = $requestManager->request("/settlements/".$this->id, "PUT", $data);
         return $request;
     }
 
@@ -86,7 +98,7 @@ class Settlement
      */
     public static function getSettlement($id) {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
-        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/settlements/" . $id);
+        $request = $requestManager->request("/settlements/" . $id);
         $response = $request->getJSONResponse();
         if (!empty($response)) {
             return new Settlement($response);

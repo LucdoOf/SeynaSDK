@@ -12,6 +12,7 @@ class Claim
 
     static $columns = [
         "id",
+        "ref",
         "version",
         "event",
         "contract",
@@ -25,6 +26,8 @@ class Claim
 
     /** @var Identifiant du claim */
     public $id;
+    /** @var Référence du claim */
+    public $ref;
     /** @var Version actuelle du claim */
     public $version;
     /** @var Dernier évenement appliqué au claim */
@@ -85,12 +88,22 @@ class Claim
     }
 
     /**
-     * Créé ou met a jour le claim chez seyna
+     * Créé le claim chez seyna
      */
-    public function putClaim() {
+    public function createClaim() {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
         $data = $this->toJSON();
-        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/claims/" . $this->id, "PUT", $data);
+        $request = $requestManager->request("/claims/", "POST", $data);
+        return $request;
+    }
+
+    /**
+     * Met à jour le claim chez seyna
+     */
+    public function updateClaim() {
+        $requestManager = SeynaSDK::getInstance()->getRequestManager();
+        $data = $this->toJSON();
+        $request = $requestManager->request("/claims/" . $this->id, "PUT", $data);
         return $request;
     }
 
@@ -102,7 +115,7 @@ class Claim
      */
     public static function getClaim($id) {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
-        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/claims/" . $id);
+        $request = $requestManager->request("/claims/" . $id);
         $response = $request->getJSONResponse();
         if (!empty($response)) {
             return new Claim($response);
@@ -117,7 +130,7 @@ class Claim
      */
     public function getHistory() {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
-        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/claims/" . $this->id . "/versions");
+        $request = $requestManager->request("/claims/" . $this->id . "/versions");
         $response = $request->getJSONResponse();
         $claims = [];
         if (isset($response["data"])) {
@@ -135,7 +148,7 @@ class Claim
      */
     public function getSettlements() {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
-        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/claims/" . $this->id . "/settlements");
+        $request = $requestManager->request("/claims/" . $this->id . "/settlements");
         $response = $request->getJSONResponse();
         $settlements = [];
         if (isset($response["data"])) {

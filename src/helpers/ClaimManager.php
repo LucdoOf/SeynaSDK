@@ -16,7 +16,7 @@ abstract class ClaimManager
 {
 
     /**
-     * @param $id String
+     * @param $ref String
      * @param $contract Contract
      * @param $occurence String
      * @param $location String
@@ -25,9 +25,9 @@ abstract class ClaimManager
      * @param $guarantees Guarantee[]
      * @return Claim
      */
-    public static function createClaim($id, $contract, $occurence, $location, $notification, $revaluation_reason, $guarantees) {
+    public static function createClaim($ref, $contract, $occurence, $location, $notification, $revaluation_reason, $guarantees) {
         $claim = new Claim();
-        $claim->id = $id;
+        $claim->ref = $ref;
         $claim->version = 0;
         $claim->event = "new";
         $claim->contract = $contract->id;
@@ -36,7 +36,7 @@ abstract class ClaimManager
         $claim->notification = $notification;
         $claim->revaluation_reason = $revaluation_reason;
         $claim->guarantees = $guarantees;
-        $claim->putClaim();
+        $claim->createClaim();
         return $claim;
     }
 

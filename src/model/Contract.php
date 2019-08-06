@@ -19,6 +19,7 @@ class Contract
 
     static $columns = [
         "id",
+        "ref",
         "version",
         "event",
         "customer",
@@ -36,8 +37,10 @@ class Contract
         "guarantees",
     ];
 
-    /** @var String Identifiant du contrat */
+    /** @var string Id du contrat */
     public $id;
+    /** @var String Identifiant du contrat chez nous */
+    public $ref;
     /** @var int Version récupérée du contrat */
     public $version;
     /** @var Url du contrat */
@@ -132,30 +135,42 @@ class Contract
     }
 
     /**
-     * Créé ou met a jour le contract chez seyna
+     * Créé le contrat chez seyna
      *
      * @return Request
      */
-    public function putContract() {
+    public function createContract() {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
         $data = $this->toJSON();
-        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/contracts/" . $this->id, "PUT", $data);
+        $request = $requestManager->request( "/contracts/", "POST", $data);
+        return $request;
+    }
+
+    /**
+     * Met à jour le contrat chez seyna
+     *
+     * @return Request
+     */
+    public function updateContract() {
+        $requestManager = SeynaSDK::getInstance()->getRequestManager();
+        $data = $this->toJSON();
+        $request = $requestManager->request("/contracts/".$this->id, "PUT", $data);
         return $request;
     }
 
     /**
      * Récupère un contract par son identifiant unique
      *
+     * @param $id int Identifiant du contrat
      * @return Contract
      */
     public static function getContract($id) {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
-        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/contracts/" . $id);
+        $request = $requestManager->request("/contracts/" . $id);
         $response = $request->getJSONResponse();
         if (!empty($response)) {
             return new Contract($response);
         }
-
         Dbg::logs("Unknown contract " . $id);
         Dbg::error($response);
         return null;
@@ -168,7 +183,7 @@ class Contract
      */
     public function getHistory() {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
-        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/contracts/" . $this->id . "/versions");
+        $request = $requestManager->request("/contracts/" . $this->id . "/versions");
         $response = $request->getJSONResponse();
         $contracts = [];
         if (isset($response["data"])) {
@@ -188,7 +203,7 @@ class Contract
      */
     public function getReceipts() {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
-        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/contracts/" . $this->id . "/receipts");
+        $request = $requestManager->request("/contracts/" . $this->id . "/receipts");
         $response = $request->getJSONResponse();
         $receipts = [];
         if (!empty($response["data"])) {
@@ -208,7 +223,7 @@ class Contract
      */
     public function getClaims() {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
-        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/contracts/" . $this->id . "/claims");
+        $request = $requestManager->request("/contracts/" . $this->id . "/claims");
         $response = $request->getJSONResponse();
         $claims = [];
         if (!empty($response["data"])) {

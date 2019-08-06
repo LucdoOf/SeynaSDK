@@ -19,7 +19,7 @@ abstract class ContractManager
 {
 
     /**
-     * @param $id String
+     * @param $ref String
      * @param $guarantees Guarantee[]
      * @param $cancel Cancel
      * @param $extra_broker_fee int
@@ -35,24 +35,9 @@ abstract class ContractManager
      * @param $insured Entity[]
      * @return Contract
      */
-    public static function createContract(
-        $id,
-        $guarantees,
-        $cancel,
-        $extra_broker_fee,
-        $coinsurance,
-        $end,
-        $start,
-        $subscription,
-        $issuance,
-        $splitting,
-        $beneficiary,
-        $customer,
-        $subscriber,
-        $insured
-    ) {
+    public static function createContract($ref, $guarantees, $cancel, $extra_broker_fee, $coinsurance, $end, $start, $subscription, $issuance, $splitting, $beneficiary, $customer, $subscriber, $insured) {
         $contract = new Contract();
-        $contract->id = $id;
+        $contract->ref = $ref;
         $contract->guarantees = $guarantees;
         $contract->cancel = $cancel;
         $contract->extra_broker_fee = $extra_broker_fee;
@@ -68,7 +53,7 @@ abstract class ContractManager
         $contract->insured = $insured;
         $contract->event = "new";
         $contract->version = 0;
-        Dbg::logs($contract->putContract(), Dbg::L_NOTICE);
+        Dbg::logs($contract->createContract(), Dbg::L_NOTICE);
         return $contract;
     }
 }

@@ -17,10 +17,12 @@ class Receipt
 
     use JSONBuilder;
 
-    static $columns = ["id", "version", "event", "contract", "issued", "due", "paid", "start", "end", "guarantees"];
+    static $columns = ["id", "ref", "version", "event", "contract", "issued", "due", "paid", "start", "end", "guarantees"];
 
-    /** @var Indentifiant du reçu (unique par portfolio) */
+    /** @var Indentifiant du reçu unique */
     public $id;
+    /** @var Réference chez nous du recu */
+    public $ref;
     /** @var Version du reçu */
     public $version;
     /** @var Evenement lié à la version du reçu */
@@ -81,12 +83,22 @@ class Receipt
     }
 
     /**
-     * Créé ou met a jour le receipt chez seyna
+     * Créé le receipt chez seyna
      */
-    public function putReceipt() {
+    public function createReceipt() {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
         $data = $this->toJSON();
-        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/receipts/" . $this->id, "PUT", $data);
+        $request = $requestManager->request("/receipts/", "POST", $data);
+        return $request;
+    }
+
+    /**
+     * Met a jour le receipt chez seyna
+     */
+    public function updateReceipt() {
+        $requestManager = SeynaSDK::getInstance()->getRequestManager();
+        $data = $this->toJSON();
+        $request = $requestManager->request("/receipts/".$this->id, "POST", $data);
         return $request;
     }
 
@@ -98,7 +110,7 @@ class Receipt
      */
     public static function getReceipt($id) {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
-        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/receipts/" . $id);
+        $request = $requestManager->request("/receipts/" . $id);
         $response = $request->getJSONResponse();
         if (!empty($response)) {
             return new Receipt($response);
@@ -113,7 +125,7 @@ class Receipt
      */
     public function getHistory() {
         $requestManager = SeynaSDK::getInstance()->getRequestManager();
-        $request = $requestManager->request("portfolios/" . PORTFOLIO_ID . "/receipts/" . $this->id . "/versions");
+        $request = $requestManager->request("/receipts/" . $this->id . "/versions");
         $response = $request->getJSONResponse();
         $contracts = [];
         if (isset($response["data"])) {

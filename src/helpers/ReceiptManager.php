@@ -17,7 +17,7 @@ abstract class ReceiptManager
 {
 
     /**
-     * @param $id String
+     * @param $ref String
      * @param $contract Contract
      * @param $issued String
      * @param $due String
@@ -27,9 +27,9 @@ abstract class ReceiptManager
      * @param $guarantees Guarantee[]
      * @return Receipt
      */
-    public static function createReceipt($id, $contract, $issued, $due, $paid, $start, $end, $guarantees) {
+    public static function createReceipt($ref, $contract, $issued, $due, $paid, $start, $end, $guarantees) {
         $receipt = new Receipt();
-        $receipt->id = $id;
+        $receipt->ref = $ref;
         $receipt->version = 0;
         $receipt->event = "new";
         $receipt->contract = ["id" => $contract->id, "version" => $contract->version, "url" => $contract->url];
@@ -39,7 +39,7 @@ abstract class ReceiptManager
         $receipt->start = $start;
         $receipt->end = $end;
         $receipt->guarantees = $guarantees;
-        Dbg::logs($receipt->putReceipt(), Dbg::L_NOTICE);
+        Dbg::logs($receipt->createReceipt(), Dbg::L_NOTICE);
         return $receipt;
     }
 
