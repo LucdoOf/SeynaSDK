@@ -11,8 +11,6 @@ Un fichier ``conf.inc.php`` est livré à la racine du projet. Vous **devez**  c
 - ``SEYNA_URL`` Doit correspondre à l'URL SEYNA sur laquelle vous pouvez faire vos appels
 - ``IS_DEV`` Doit être mis à ``false`` en production et ``true`` en développement  
 
-_La constance ``SDK_ROOT`` peut elle aussi être modifiée en fonction de votre installation_
-   
 # Utilisation
 
 ### Avant propos : 
@@ -31,7 +29,7 @@ pour le bon fonctionnement de ceux si.
 
 ### Manipulation des objets : 
 Pour créer un objet deux options sont possibles, la première utiliser les classes manager et leur fonctions `createObject`, la seconde est 
-d'instancier un objet avec une array associative contenant toutes ses variables puis d'appeler sa méthode `putObject`. Exemple d'instanciation d'un objet Claim: 
+d'instancier un objet avec une array associative contenant toutes ses variables puis d'appeler sa méthode `createObject`. Exemple d'instanciation d'un objet Claim: 
 ```php
 <?php
 ClaimManager::createClaim(
@@ -48,7 +46,7 @@ Et avec la deuxième méthode:
 ```php
 <?php
 $claim = new Claim([
-    'id' => $id,
+    'ref' => $ref,
     'contract' => $contract->id,
     'occurence' => $occurence,
     'location' => $location,
@@ -56,7 +54,7 @@ $claim = new Claim([
     'revaluation_reason' => $reason,
     'guarantees' => $guarantees
 ]);
-$claim->putClaim();
+$claim->createClaim();
 ```
 
 >\* Attention, procéder de cette manière est déconseillée car certains champs ont une syntaxe spéciale lors de l'envoi (notamment les champs contracts qui varient selon les objets)
